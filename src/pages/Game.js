@@ -1,6 +1,8 @@
 import React, { Component, Fragment, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import getQuestions from '../apis/getTrivial';
+import NavBar from '../components/game/NavBar';
+import Question from '../components/game/Question';
 import GameContext from '../context/game/GameProvider';
 import { types } from '../context/game/GameReducer';
 
@@ -27,10 +29,12 @@ const Game = () => {
 
     return (
         <Fragment>
-            <h1>Game</h1>
-            <h2>{questions[0]?.correct_answer}</h2>
+            <NavBar />
+            <Question />
         </Fragment>
     )
 }
 
 export default Game;
+
+//<h2>{questions[0]?.correct_answer}</h2>
