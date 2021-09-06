@@ -6,32 +6,29 @@ import { types } from '../context/game/GameReducer';
 
 const Game = () => {
     const [{player, category, level}, dispatch] = useContext(GameContext);
-    const [questions, setQuestions] = useState();
+    const [questions, setQuestions] = useState([]);
     let history = useHistory();
-    let s;
 
     useEffect(() => {
-        if (player === 'No hay jugador') {
+       if (player === 'No hay jugador') {
             history.push("lobby")
         } else {
-            //getQuestions(category, level).then(response => {setQuestions(response) });
+            getQuestions(category, level).then(response => {
+                setQuestions(response.results);
 
-            getQuestions(category, level).then(response => {setQuestions(response)});
-            console.log("***" + questions);
-
-
-            
-            //console.log("usestate: " + s);
-            /*dispatch({
-                type: types.startGame,
-                payload: questions
-            })*/
+                dispatch({
+                    type: types.startGame,
+                    payload: response.results
+                });
+            });    
         }
     }, []);
 
+
     return (
         <Fragment>
-            <h1>Game:</h1>
+            <h1>Game</h1>
+            <h2>{questions[0]?.correct_answer}</h2>
         </Fragment>
     )
 }

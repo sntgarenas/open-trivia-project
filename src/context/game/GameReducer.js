@@ -23,10 +23,10 @@ const gameReducer = (state, action) => {
                 level: action.payload.level === '' ? state.level : action.payload.level
             }
         case types.startGame:
-            console.log(action.payload.questions);
+            console.log(action.payload);
             return {
                 ...state,
-                questions: action.payload.questions
+                questions: action.payload
             }
         default:
             return state;
