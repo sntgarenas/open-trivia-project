@@ -1,5 +1,5 @@
 import React, { Component, Fragment, useContext, useState } from 'react';
-import GameContext from '../../context/game/GameProvider';
+import GameContext from '../../../context/game/GameProvider';
 
 const NavBar = () => {
     const [{player, level}, dispatch] = useContext(GameContext);

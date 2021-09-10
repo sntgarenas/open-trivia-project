@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Game from '../pages/Game';
-import Lobby from '../pages/Lobby';
-import NotFoundPage from '../pages/NotFoundPage';
+import Game from '../pages/game/Game';
+import Lobby from '../pages/lobby/Lobby';
+import NotFoundPage from '../pages/notFoundPage/NotFoundPage';
 
 
 const AppRouter = () => {

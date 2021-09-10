@@ -1,6 +1,6 @@
 import React, { Component, Fragment, useContext, useState } from 'react';
-import GameContext from '../../context/game/GameProvider';
-import { types } from '../../context/game/GameReducer';
+import GameContext from '../../../context/game/GameProvider';
+import { types } from '../../../context/game/GameReducer';
 
 const Question = () => {
     const [{questions, correctQuestionCounter}, dispatch] = useContext(GameContext);
