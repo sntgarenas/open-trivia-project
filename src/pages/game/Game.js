@@ -16,12 +16,12 @@ const Game = () => {
             history.push("lobby")
         } else {
             getQuestions(category, level).then(response => {
-                setQuestions(response.results);
+                    setQuestions(response.results);
 
-                dispatch({
-                    type: types.startGame,
-                    payload: response.results
-                });
+                    dispatch({
+                        type: types.startGame,
+                        payload: response.results
+                    });
             });    
         }
     }, []);
@@ -30,11 +30,13 @@ const Game = () => {
     return (
         <Fragment>
             <NavBar />
-            <Question />
+            {questions.length > 0
+                ? <Question />
+                : <p>nada</p>
+            }
+            
         </Fragment>
     )
 }
 
 export default Game;
-
-//<h2>{questions[0]?.correct_answer}</h2>

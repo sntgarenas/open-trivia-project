@@ -6,11 +6,11 @@ import  './Lobby.css';
 
 
 const Lobby = () => {
-    const [{player, category, level}, dispatch] = useContext(GameContext);
+    const [{}, dispatch] = useContext(GameContext);
     const [match, setMatch] = useState({
         player: '',
-        category: 'nature',
-        level: 'Easy'
+        category: 9,
+        level: 'easy'
     });
     let history = useHistory();
 
@@ -79,7 +79,7 @@ const Lobby = () => {
                         
                         <option value="easy">Easy</option>
                         <option value="medium">Medium</option>
-                        <option value="Hard">Hard</option>
+                        <option value="hard">Hard</option>
                     </select>
                 </div>
                 
@@ -93,33 +93,3 @@ const Lobby = () => {
 }
 
 export default Lobby;
-
-
-
-/*<Fragment>
-            <form 
-                onSubmit={handleSubmit}
-            >
-                <input type="text" name="player" onChange={handleChange}/>
-
-                <select name="category" onChange={handleChange} >
-                    <option value="21">sports</option>
-                    <option value="9">nature</option>
-                </select>
-
-                
-                <select name="level" onChange={handleChange}>
-                    <option value="easy">easy</option>
-                    <option value="medium">medium</option>
-                    <option value="hard">hard</option>
-                </select>
-
-                <input 
-                    type="submit" 
-                />
-            </form>
-
-            <h1>JUGADOR: {player}</h1>
-            <h1>CATEGORIA: {category}</h1>
-            <h1>NIVEL: {level}</h1>
-        </Fragment>*/

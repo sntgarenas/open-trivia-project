@@ -6,9 +6,10 @@ const NavBar = () => {
 
     return ( 
         <nav>
-            <h2>Jugador: {player}</h2>
-            <h2>Nivel: {level}</h2>
-            <h2>Ganancia: $0</h2>
+            <button>Back</button>
+            <span>Jugador: {player}</span>
+            <span>Nivel: {level}</span>
+            <span>Ganancia: $0</span>
         </nav>
      );
 }
