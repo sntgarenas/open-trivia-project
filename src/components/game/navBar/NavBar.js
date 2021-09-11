@@ -2,7 +2,7 @@ import React, { Component, Fragment, useContext, useState } from 'react';
 import GameContext from '../../../context/game/GameProvider';
 
 const NavBar = () => {
-    const [{player, level}, dispatch] = useContext(GameContext);
+    const [{player, level, rewards}, dispatch] = useContext(GameContext);
 
     return ( 
         <div className="box header">
@@ -15,7 +15,7 @@ const NavBar = () => {
                         Level: {level}
                     </div>
                     <div className="col-4">
-                        Gain: $ 0
+                        Gain: $ { rewards }
                     </div>
                 </div>
             </div>

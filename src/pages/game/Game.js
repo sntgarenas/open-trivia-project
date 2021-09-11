@@ -35,7 +35,7 @@ const Game = () => {
 
             {questions.length > 0
                 ? <Question />
-                : <p>nada</p>
+                : <p>Loading...</p>
             }
 
             <Score numberQuestions={questions.length} />

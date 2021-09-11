@@ -5,8 +5,6 @@ const Score = ({numberQuestions}) => {
     const [{}, dispatch] = useContext(GameContext);
     const [score, setScore] = useState([]);
 
-
-
     const addScore = () => {
         for (let i = 0; i < numberQuestions; i++) {
             score.push(i+1);

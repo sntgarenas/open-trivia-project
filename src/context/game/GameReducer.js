@@ -10,7 +10,7 @@ const initialState = {
     category: 0,
     level: '',
     questions: [],
-    correctAnswerCounter: 0
+    rewards: 0
 }
 
 const gameReducer = (state, action) => {
@@ -30,7 +30,7 @@ const gameReducer = (state, action) => {
         case types.correctAnswer:
             return {
                 ...state,
-                correctAnswerCounter: action.payload
+                rewards: state.rewards + action.payload
             }
         default:
             return state;
