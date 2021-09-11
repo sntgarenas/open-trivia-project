@@ -12,7 +12,7 @@ const Question = () => {
 
         questions[questionCount].incorrect_answers.map(answ => temporaryArray.push(answ));
         temporaryArray.push(questions[questionCount].correct_answer);
-        setcurrentOptions(temporaryArray.sort())
+        setcurrentOptions(temporaryArray.sort());
     }
 
     const handleOptions = () => {
@@ -29,12 +29,34 @@ const Question = () => {
     }, [questions, questionCount]);
 
     return ( 
-        <div className="container-question">
-            <h2>{questions[questionCount]?.question}</h2>
-            <h5>1 {currentOptions[0]}</h5>
-            <h5>2 {currentOptions[1]}</h5>
-            <h5>3 {currentOptions[2]}</h5>
-            <h5>4 {currentOptions[3]}</h5>
+        <div className="box content">
+            <div className="container">
+                <div className="row">
+                    Imagen
+                </div>
+                <div style={{textAlign: "center"}}>
+                    30
+                </div>
+                <div style={{textAlign: "center"}}>
+                    {questions[questionCount]?.question}
+                </div>
+
+                <div className="row">
+                    <div>
+                        <div className="center row" style={{margin: "auto"}}>    
+                            {currentOptions.map((question, index) => {
+                                return <div className="col answer" key={index}>
+                                        <button type="submit" 
+                                                className="btn btn-outline-primary btn-lg center2"
+                                        >
+                                            {question}
+                                        </button>
+                                    </div>
+                            })}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
      );
 }

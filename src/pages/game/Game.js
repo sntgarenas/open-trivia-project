@@ -3,8 +3,10 @@ import { useHistory } from 'react-router';
 import getQuestions from '../../apis/getTrivial';
 import NavBar from '../../components/game/navBar/NavBar';
 import Question from '../../components/game/question/Question';
+import Score from './../../components/game/score/Score';
 import GameContext from '../../context/game/GameProvider';
 import { types } from '../../context/game/GameReducer';
+import './Game.css';
 
 const Game = () => {
     const [{player, category, level}, dispatch] = useContext(GameContext);
@@ -28,14 +30,16 @@ const Game = () => {
 
 
     return (
-        <Fragment>
+        <div className="wrapper">
             <NavBar />
+
             {questions.length > 0
                 ? <Question />
                 : <p>nada</p>
             }
-            
-        </Fragment>
+
+            <Score numberQuestions={questions.length} />
+        </div>
     )
 }
 
