@@ -2,7 +2,8 @@
 const types = {
     register: 'register',
     startGame: 'start-game',
-    correctAnswer: 'correct-answer'
+    correctAnswer: 'correct-answer',
+    resetGameData: 'reset-game-data'
 }
 
 const initialState = {
@@ -31,6 +32,14 @@ const gameReducer = (state, action) => {
             return {
                 ...state,
                 rewards: state.rewards + action.payload
+            }
+        case types.resetGameData:
+            return {
+                player: 'No hay jugador',
+                category: 0,
+                level: '',
+                questions: [],
+                rewards: 0
             }
         default:
             return state;

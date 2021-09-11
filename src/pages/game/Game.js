@@ -15,7 +15,7 @@ const Game = () => {
 
     useEffect(() => {
        if (player === 'No hay jugador') {
-            history.push("lobby")
+            history.push("lobby");
         } else {
             getQuestions(category, level).then(response => {
                     setQuestions(response.results);

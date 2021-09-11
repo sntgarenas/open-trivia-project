@@ -87,3 +87,7 @@ color: #444;
     margin-top: 2%;
     margin-bottom: 20px;
 }
+
+.my-icon {
+    cursor: pointer;
+}

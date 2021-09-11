@@ -1,4 +1,5 @@
 import React, { Component, Fragment, useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import GameContext from '../../../context/game/GameProvider';
 import { types } from '../../../context/game/GameReducer';
 
@@ -7,6 +8,7 @@ const Question = () => {
     const [questionNumber, setQuestionNumber] = useState(0);
     const [currentOptions, setcurrentOptions] = useState([]);
     const [countDown, setCountDown] = useState(30);
+    let history = useHistory();
 
     const sortOptionsQuestions = () => {
         const temporaryArray = [];
@@ -27,6 +29,14 @@ const Question = () => {
         }
     }
 
+    const handleBack = () => {
+        dispatch({
+            type: types.resetGameData
+        })
+
+        history.push("lobby");
+    }
+
     useEffect(() => {
         if (questions.length > 0) {
             sortOptionsQuestions();
@@ -38,7 +48,7 @@ const Question = () => {
         <div className="box content">
             <div className="container">
                 <div className="row">
-                    Imagen
+                    <i class="fas fa-caret-square-left my-icon" onClick={handleBack}></i>
                 </div>
                 <div style={{textAlign: "center"}}>
                     {countDown}
