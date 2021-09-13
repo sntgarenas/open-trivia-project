@@ -91,3 +91,11 @@ color: #444;
 .my-icon {
     cursor: pointer;
 }
+
+.failed {
+    background-color:  red !important;
+}
+
+.success {
+    background-color: green !important;
+}

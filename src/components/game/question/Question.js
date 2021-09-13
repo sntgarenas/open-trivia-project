@@ -4,29 +4,47 @@ import GameContext from '../../../context/game/GameProvider';
 import { types } from '../../../context/game/GameReducer';
 
 const Question = () => {
-    const [{questions, correctQuestionCounter}, dispatch] = useContext(GameContext);
-    const [questionNumber, setQuestionNumber] = useState(0);
+    const [{questions, questionNumber}, dispatch] = useContext(GameContext);
     const [currentOptions, setcurrentOptions] = useState([]);
+    const [selectedButton, setSelectedButton] = useState(false);
     const [countDown, setCountDown] = useState(30);
     let history = useHistory();
 
     const sortOptionsQuestions = () => {
-        const temporaryArray = [];
+        let temporaryArray = [];
 
         questions[questionNumber].incorrect_answers.map(answ => temporaryArray.push(answ));
         temporaryArray.push(questions[questionNumber].correct_answer);
-        setcurrentOptions(temporaryArray.sort());
+        temporaryArray = temporaryArray.sort();
+        temporaryArray = temporaryArray.map(answ => ({answ}))
+        
+        setcurrentOptions(temporaryArray);
     }
 
-    const handleResponse = e => {
+    const handleResponse = (e, index) => {
+        const options = [...currentOptions];
+
         if (e.target.innerHTML === questions[questionNumber].correct_answer) {
-            dispatch({
-                type: types.correctAnswer,
-                payload: ((questionNumber+1)*1000)
-            })
-            
-            setQuestionNumber((questionNumber+1));
+
+            options[index].success = true;
+
+            setTimeout(() => {
+                dispatch({
+                    type: types.correctAnswer,
+                    payload: ((questionNumber+1)*1000)
+                })
+                
+                setSelectedButton(false);
+                setCountDown(30);
+            }, 5000);
+        } else {
+            options[index].failed = true;
+            setCountDown(0);
         }
+
+        
+        setSelectedButton(true);
+        setcurrentOptions(options);
     }
 
     const handleBack = () => {
@@ -43,12 +61,25 @@ const Question = () => {
         }
     }, [questions, questionNumber]);
 
+    useEffect(() => {
+        if (!countDown || selectedButton) {
+            setSelectedButton(true);
+            return;
+        }
+
+        const interval = setInterval(() => {
+            setCountDown(countDown-1);
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [countDown]);
+
 
     return ( 
         <div className="box content">
             <div className="container">
                 <div className="row">
-                    <i class="fas fa-caret-square-left my-icon" onClick={handleBack}></i>
+                    <i className="fas fa-caret-square-left my-icon" onClick={handleBack}></i>
                 </div>
                 <div style={{textAlign: "center"}}>
                     {countDown}
@@ -63,10 +94,14 @@ const Question = () => {
                             {currentOptions.map((question, index) => {
                                 return <div className="col answer" key={index}>
                                             <button type="button"
-                                                    onClick={handleResponse}
-                                                    className="btn btn-outline-primary btn-lg center2"
+                                                    onClick={(e) =>  handleResponse(e, index)}
+                                                    className={`btn btn-outline-primary btn-lg center2 
+                                                                ${question.failed ? 'failed' : ''}
+                                                                ${question.success ? 'success' : ''}`
+                                                            }
+                                                    disabled={selectedButton}
                                             >
-                                                {question}
+                                                {question.answ}
                                             </button>
                                         </div>
                             })}

@@ -2,14 +2,19 @@ import React, { Component, Fragment, useContext, useEffect, useState } from 'rea
 import GameContext from '../../../context/game/GameProvider';
 
 const Score = ({numberQuestions}) => {
-    const [{}, dispatch] = useContext(GameContext);
+    const [{questionNumber}, dispatch] = useContext(GameContext);
     const [score, setScore] = useState([]);
 
     const addScore = () => {
+        const temporaryArray = []
+
         for (let i = 0; i < numberQuestions; i++) {
-            score.push(i+1);
+            temporaryArray.push(i+1);
         }
+        setScore(temporaryArray.reverse());
     }
+
+    console.log(score.reverse());
 
     useEffect(() => {
         addScore();
@@ -19,8 +24,10 @@ const Score = ({numberQuestions}) => {
     return ( 
         <div className="box sidebar2">
             <div className="col-sm-10">
-                {score.reverse().map((number, index) => {
-                    return <p key={index}> {number} $ {number*1000} </p>
+                {score.map((number, index) => {
+                    return <p key={index} 
+                              className={number === (questionNumber+1) ? 'success' : '' } 
+                            > {number} $ {number*1000} </p>
                 })}
             </div>
         </div>
