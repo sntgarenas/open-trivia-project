@@ -60,11 +60,11 @@ const Lobby = () => {
                             required
                     >
                         
-                        <option value="9">Cultura general</option>
-                        <option value="10">Libros</option>
-                        <option value="11">Filmers</option>
-                        <option value="12">Musica</option>
-                        <option value="17">Ciencia y naturaleza</option>
+                        <option value="9">General Knowledge</option>
+                        <option value="10">Entertainment: Books</option>
+                        <option value="11">Entertainment: Film</option>
+                        <option value="12">Entertainment: Music</option>
+                        <option value="17">Science and Nature</option>
                     </select>
                 </div>
 

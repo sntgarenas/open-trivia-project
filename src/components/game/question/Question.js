@@ -8,6 +8,8 @@ const Question = () => {
     const [currentOptions, setcurrentOptions] = useState([]);
     const [selectedButton, setSelectedButton] = useState(false);
     const [countDown, setCountDown] = useState(30);
+    const [isWinner, setIsWinner] = useState(false);
+    const [isLoser, setIsLoser] = useState(false);
     let history = useHistory();
 
     const sortOptionsQuestions = () => {
@@ -24,8 +26,18 @@ const Question = () => {
     const handleResponse = (e, index) => {
         const options = [...currentOptions];
 
-        if (e.target.innerHTML === questions[questionNumber].correct_answer) {
+        if (questionNumber === questions.length - 1) {
+            setIsWinner(true);
 
+            dispatch({
+                type: types.winGame,
+                payload: ((questionNumber+1)*1000)
+            });
+
+            return;
+        }
+
+        if (e.target.innerHTML === questions[questionNumber].correct_answer) {
             options[index].success = true;
 
             setTimeout(() => {
@@ -40,9 +52,9 @@ const Question = () => {
         } else {
             options[index].failed = true;
             setCountDown(0);
+            setIsLoser(true);
         }
 
-        
         setSelectedButton(true);
         setcurrentOptions(options);
     }
@@ -81,33 +93,48 @@ const Question = () => {
                 <div className="row">
                     <i className="fas fa-caret-square-left my-icon" onClick={handleBack}></i>
                 </div>
-                <div style={{textAlign: "center"}}>
-                    {countDown}
-                </div>
-                <div style={{textAlign: "center"}}>
-                    {questions[questionNumber]?.question}
-                </div>
-
-                <div className="row">
-                    <div>
-                        <div className="center row" style={{margin: "auto"}}>    
-                            {currentOptions.map((question, index) => {
-                                return <div className="col answer" key={index}>
-                                            <button type="button"
-                                                    onClick={(e) =>  handleResponse(e, index)}
-                                                    className={`btn btn-outline-primary btn-lg center2 
-                                                                ${question.failed ? 'failed' : ''}
-                                                                ${question.success ? 'success' : ''}`
-                                                            }
-                                                    disabled={selectedButton}
-                                            >
-                                                {question.answ}
-                                            </button>
-                                        </div>
-                            })}
+                
+                {!isWinner
+                   ? <Fragment>
+                        <div style={{textAlign: "center"}}>
+                            {countDown}
                         </div>
+                        <div style={{textAlign: "center"}}>
+                            {questions[questionNumber]?.question}
+                        </div>
+
+                    
+                        <div className="row">
+                            <div>
+                                <div className="center row" style={{margin: "auto"}}>    
+                                    {currentOptions.map((question, index) => {
+                                        return <div className="col answer" key={index}>
+                                                    <button type="button"
+                                                            onClick={(e) =>  handleResponse(e, index)}
+                                                            className={`btn btn-outline-primary btn-lg center2 
+                                                                        ${question.failed ? 'failed' : ''}
+                                                                        ${question.success ? 'success' : ''}`
+                                                                    }
+                                                            disabled={selectedButton}
+                                                    >
+                                                        {question.answ}
+                                                    </button>
+                                                </div>
+                                    })}
+                                </div>
+                            </div>
+                        </div>
+                    </Fragment>
+
+                    : <div className="row"> 
+                        <h2 style={{color: "green", textAlign: "center"}}>¡Ganastes!</h2>
                     </div>
-                </div>
+                }
+
+                {isLoser
+                    ? <h2 style={{color: "red", textAlign: "center"}}>¡Perdistes!</h2>
+                    : null
+                }
             </div>
         </div>
      );
